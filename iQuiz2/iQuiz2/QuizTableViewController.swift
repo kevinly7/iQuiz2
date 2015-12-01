@@ -18,9 +18,10 @@ struct Question {
 class QuizTableViewController: UITableViewController {
     
     let quizNames = ["Math", "Science", "Art"]
+    let quizSubNames = ["Math Sub", "Science Sub", "Art Sub"]
     let quizImages = [UIImage(named: "math"), UIImage(named: "science"), UIImage(named: "art")]
     
-    let MathQuiz = [Question(question: "2+2 = ?", answers: ["4", "5", "6", "7"], correctAnswer: "4"), Question(question: "2+3 = ?", answers: ["5", "6", "7", "8"], correctAnswer: "5")]
+    let mathQuiz = [Question(question: "2+2 = ?", answers: ["4", "5", "6", "7"], correctAnswer: "4"), Question(question: "2+3 = ?", answers: ["5", "6", "7", "8"], correctAnswer: "5")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,8 @@ class QuizTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.navigationController?.navigationBar.topItem?.title = "Pick a Quiz!"
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,6 +56,7 @@ class QuizTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("quizCell", forIndexPath: indexPath) as! QuizCell
         
         cell.quizTitle.text = self.quizNames[indexPath.row]
+        cell.quizSubtitle.text = self.quizSubNames[indexPath.row]
         cell.quizImage.image = self.quizImages[indexPath.row]
 
         // Configure the cell...
@@ -60,27 +64,23 @@ class QuizTableViewController: UITableViewController {
         return cell
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+    // MARK: Navigation
     
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle = .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let cell = sender as! QuizCell
+        let questionController = segue.destinationViewController as! QuestionViewController
+        
+        switch cell.quizTitle.text! {
+            case "Math":
+                questionController.questions = self.mathQuiz
+                questionController.navigationItem.title = "Math Quiz"
+            case "Science":
+                questionController.questions = self.mathQuiz
+                questionController.navigationItem.title = "Science Quiz"
+            default:
+                questionController.questions = self.mathQuiz
+                questionController.navigationItem.title = "Art Quiz"
         }
     }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    */
 }
