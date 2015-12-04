@@ -1,2 +1,2 @@
 # iQuiz2
-iQuiz Project - Part 3
+iQuiz Project - Part 2
