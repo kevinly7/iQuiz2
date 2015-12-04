@@ -1,2 +1,2 @@
 # iQuiz2
-iOS Quiz Part 2
+iQuiz Project - Part 2
